@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 # -*- coding: utf8 -*-
 
 import socket
@@ -12,18 +12,19 @@ left = False
 commande = bytes('S', 'mac_roman')
 
 root = tk.Tk()
+root.title('Wirobot Remote')
 root.geometry('600x200')
-text = tk.Text(root, background='black', foreground='white', font=('Comic Sans MS', 12))
-text.pack()
+label = tk.Label(root, height=200, width=600,background='black', foreground='white', font=('Comic Sans MS', 12), text='WiRobot Controller is connected...\nUse _ArrowKeys_ to control the WiRobot.')
+label.pack()
 
 robotSocket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-Hote = '192.168.43.188'
+Hote = '132.208.13.15'
 Port = 2323
 robotSocket.connect((Hote,Port))
 
-text.insert('end', 'WiRobot Controller is connected...\n')
+#label.insert('end', 'WiRobot Controller is connected...\n')
 #text.insert('end', 'Use <UpKey>, <DownKey>, <RightKey> and <LeftKey> to control the WiRobot.')
-text.insert('end', 'Use _ArrowKeys_ to control the WiRobot.')
+#label.insert('end', 'Use _ArrowKeys_ to control the WiRobot.')
 
 def updateCommande():
 	global commande
@@ -122,4 +123,4 @@ root.bind('<KeyPress-Left>', leftKeyPress)
 root.bind('<KeyRelease-Left>', leftKeyRelease)
 root.mainloop()
 
-client.close()
+robotSocket.close()
